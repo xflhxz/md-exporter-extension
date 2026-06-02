@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Page to Markdown",
+  "name": "__MSG_appName__",
   "version": "1.1.0",
-  "description": "Export any webpage to a well-formatted Markdown file with one click. Supports code blocks, math formulas, tables, YAML front matter, and more.",
+  "description": "__MSG_appDescription__",
   "permissions": [
     "activeTab",
     "scripting",
@@ -19,7 +19,7 @@
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
-    "default_title": "Export as Markdown"
+    "default_title": "__MSG_appTitle__"
   },
   "content_scripts": [
     {

@@ -8,20 +8,62 @@
 
 // ── Context menu setup ─────────────────────────────────────────
 
-chrome.runtime.onInstalled.addListener(() => {
-  // Right-click on page background
-  chrome.contextMenus.create({
-    id: 'export-page-md',
-    title: 'Export Page as Markdown',
-    contexts: ['page', 'frame'],
-  });
+function createContextMenus() {
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: 'export-page-md',
+      title: chrome.i18n.getMessage('contextMenuPage'),
+      contexts: ['page', 'frame'],
+    });
 
-  // Right-click when text is selected
-  chrome.contextMenus.create({
-    id: 'export-selection-md',
-    title: 'Export Selection as Markdown',
-    contexts: ['selection'],
+    chrome.contextMenus.create({
+      id: 'export-selection-md',
+      title: chrome.i18n.getMessage('contextMenuSelection'),
+      contexts: ['selection'],
+    });
   });
+}
+
+// For menu titles we use the stored locale via manual messages
+const menuMessages = {
+  en: {
+    page: 'Export Page as Markdown',
+    selection: 'Export Selection as Markdown',
+  },
+  'zh-CN': {
+    page: '导出页面为 Markdown',
+    selection: '导出选中内容为 Markdown',
+  },
+};
+
+async function createMenusWithLocale() {
+  const stored = await chrome.storage.local.get('preferred_locale');
+  const uiLang = chrome.i18n.getUILanguage();
+  const locale = stored.preferred_locale || (uiLang.startsWith('zh') ? 'zh-CN' : 'en');
+  const msgs = menuMessages[locale] || menuMessages.en;
+
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: 'export-page-md',
+      title: msgs.page,
+      contexts: ['page', 'frame'],
+    });
+    chrome.contextMenus.create({
+      id: 'export-selection-md',
+      title: msgs.selection,
+      contexts: ['selection'],
+    });
+  });
+}
+
+chrome.runtime.onInstalled.addListener(createMenusWithLocale);
+chrome.runtime.onStartup.addListener(createMenusWithLocale);
+
+// Recreate menus when locale switches from popup
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.action === 'recreate_menus') {
+    createMenusWithLocale();
+  }
 });
 
 // ── Context menu click ─────────────────────────────────────────
@@ -52,12 +94,14 @@ async function exportTab(tabId, selectionOnly) {
     await sleep(80);
   }
 
-  // Read saved user options
+  // Read saved user options and locale
   const opts = await chrome.storage.local.get({
     frontMatter: true,
     images: true,
     links: true,
+    preferred_locale: 'en',
   });
+  const locale = opts.preferred_locale?.startsWith('zh') ? 'zh-CN' : 'en';
 
   let result;
   try {
@@ -68,6 +112,7 @@ async function exportTab(tabId, selectionOnly) {
         includeImages: opts.images,
         includeLinks: opts.links,
         selectionOnly,
+        locale,
       },
     });
   } catch (e) {

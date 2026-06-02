@@ -51,6 +51,7 @@
       includeImages = true,
       includeLinks = true,
       selectionOnly = false,
+      locale = 'en',
     } = options;
 
     const meta = extractMeta();
@@ -77,8 +78,11 @@
       .replace(/[ \t]+$/gm, '')
       .trim();
 
+    const truncatedMsg = locale === 'zh-CN'
+      ? '\n\n> *内容过长，已在此截断。*'
+      : '\n\n> *Content too long, truncated here.*';
     if (content.length > 200000) {
-      content = content.substring(0, 200000) + '\n\n> *Content too long, truncated here.*';
+      content = content.substring(0, 200000) + truncatedMsg;
     }
 
     let markdown = '';

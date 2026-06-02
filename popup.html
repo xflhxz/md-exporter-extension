@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Export Markdown</title>
+  <title id="pageTitle">Page to Markdown</title>
   <style>
     :root {
       --bg: #0f1117;
@@ -289,6 +289,29 @@
       border-top: 1px solid var(--border);
       margin: 14px 0;
     }
+
+    /* Language toggle */
+    .lang-toggle {
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 10px;
+      font-family: inherit;
+      padding: 2px 8px;
+      transition: all 0.15s;
+    }
+
+    .lang-toggle button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -297,25 +320,25 @@
   <div class="header">
     <div class="header-icon">📄</div>
     <div class="header-text">
-      <h1>Page to Markdown</h1>
-      <div class="sub">Export any webpage to Markdown</div>
+      <h1 id="appName">Page to Markdown</h1>
+      <div class="sub" id="appSubtitle"></div>
     </div>
   </div>
 
   <!-- Scope tabs -->
-  <div class="section-label">Scope</div>
+  <div class="section-label" id="scopeLabel"></div>
   <div class="scope-tabs" id="scopeTabs">
-    <button class="scope-tab active" data-scope="page">Full Page</button>
-    <button class="scope-tab" data-scope="selection">Selection</button>
+    <button class="scope-tab active" data-scope="page" id="scopeFullPage"></button>
+    <button class="scope-tab" data-scope="selection" id="scopeSelection"></button>
   </div>
 
   <!-- Options -->
-  <div class="section-label">Options</div>
+  <div class="section-label" id="optionsLabel"></div>
   <div class="options">
     <label class="option-row">
       <span class="option-label">
         <span class="option-icon">📋</span>
-        <span>YAML Front Matter</span>
+        <span id="optionFrontMatter"></span>
       </span>
       <span class="toggle">
         <input type="checkbox" id="optFrontMatter" checked>
@@ -327,7 +350,7 @@
     <label class="option-row">
       <span class="option-label">
         <span class="option-icon">🖼️</span>
-        <span>Include Images</span>
+        <span id="optionImages"></span>
       </span>
       <span class="toggle">
         <input type="checkbox" id="optImages" checked>
@@ -339,7 +362,7 @@
     <label class="option-row">
       <span class="option-label">
         <span class="option-icon">🔗</span>
-        <span>Include Links</span>
+        <span id="optionLinks"></span>
       </span>
       <span class="toggle">
         <input type="checkbox" id="optLinks" checked>
@@ -354,7 +377,7 @@
   <!-- Export button -->
   <button class="export-btn" id="exportBtn">
     <span id="btnIcon">⬇️</span>
-    <span id="btnText">Export Markdown</span>
+    <span id="btnText"></span>
   </button>
 
   <!-- Status -->
@@ -367,8 +390,11 @@
   </div>
 
   <!-- Shortcut hint -->
-  <div class="shortcut-hint">
-    Shortcut: <kbd>Alt+Shift+M</kbd> &nbsp;·&nbsp; Right-click menu supported
+  <div class="shortcut-hint" id="shortcutHint"></div>
+
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <button id="langToggle"></button>
   </div>
 
   <script src="popup.js"></script>
