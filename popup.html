@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>导出 Markdown</title>
+  <title>Export Markdown</title>
   <style>
     :root {
       --bg: #0f1117;
@@ -298,24 +298,24 @@
     <div class="header-icon">📄</div>
     <div class="header-text">
       <h1>Page to Markdown</h1>
-      <div class="sub">将网页导出为 Markdown 文件</div>
+      <div class="sub">Export any webpage to Markdown</div>
     </div>
   </div>
 
   <!-- Scope tabs -->
-  <div class="section-label">导出范围</div>
+  <div class="section-label">Scope</div>
   <div class="scope-tabs" id="scopeTabs">
-    <button class="scope-tab active" data-scope="page">整页内容</button>
-    <button class="scope-tab" data-scope="selection">选中内容</button>
+    <button class="scope-tab active" data-scope="page">Full Page</button>
+    <button class="scope-tab" data-scope="selection">Selection</button>
   </div>
 
   <!-- Options -->
-  <div class="section-label">导出选项</div>
+  <div class="section-label">Options</div>
   <div class="options">
     <label class="option-row">
       <span class="option-label">
         <span class="option-icon">📋</span>
-        <span>YAML 元数据</span>
+        <span>YAML Front Matter</span>
       </span>
       <span class="toggle">
         <input type="checkbox" id="optFrontMatter" checked>
@@ -327,7 +327,7 @@
     <label class="option-row">
       <span class="option-label">
         <span class="option-icon">🖼️</span>
-        <span>保留图片链接</span>
+        <span>Include Images</span>
       </span>
       <span class="toggle">
         <input type="checkbox" id="optImages" checked>
@@ -339,7 +339,7 @@
     <label class="option-row">
       <span class="option-label">
         <span class="option-icon">🔗</span>
-        <span>保留超链接</span>
+        <span>Include Links</span>
       </span>
       <span class="toggle">
         <input type="checkbox" id="optLinks" checked>
@@ -354,7 +354,7 @@
   <!-- Export button -->
   <button class="export-btn" id="exportBtn">
     <span id="btnIcon">⬇️</span>
-    <span id="btnText">导出 Markdown</span>
+    <span id="btnText">Export Markdown</span>
   </button>
 
   <!-- Status -->
@@ -368,7 +368,7 @@
 
   <!-- Shortcut hint -->
   <div class="shortcut-hint">
-    快捷键：<kbd>Alt+Shift+M</kbd> &nbsp;·&nbsp; 支持右键菜单
+    Shortcut: <kbd>Alt+Shift+M</kbd> &nbsp;·&nbsp; Right-click menu supported
   </div>
 
   <script src="popup.js"></script>

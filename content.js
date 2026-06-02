@@ -78,7 +78,7 @@
       .trim();
 
     if (content.length > 200000) {
-      content = content.substring(0, 200000) + '\n\n> *内容过长，已在此截断。*';
+      content = content.substring(0, 200000) + '\n\n> *Content too long, truncated here.*';
     }
 
     let markdown = '';

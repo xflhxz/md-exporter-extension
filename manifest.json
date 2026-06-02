@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Page to Markdown",
   "version": "1.1.0",
-  "description": "一键将任意网页导出为格式完整的 Markdown 文件，支持代码块、数学公式、表格、YAML 元数据",
+  "description": "Export any webpage to a well-formatted Markdown file with one click. Supports code blocks, math formulas, tables, YAML front matter, and more.",
   "permissions": [
     "activeTab",
     "scripting",
@@ -19,7 +19,7 @@
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
-    "default_title": "导出为 Markdown"
+    "default_title": "Export as Markdown"
   },
   "content_scripts": [
     {

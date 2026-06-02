@@ -12,14 +12,14 @@ chrome.runtime.onInstalled.addListener(() => {
   // Right-click on page background
   chrome.contextMenus.create({
     id: 'export-page-md',
-    title: '导出页面为 Markdown',
+    title: 'Export Page as Markdown',
     contexts: ['page', 'frame'],
   });
 
   // Right-click when text is selected
   chrome.contextMenus.create({
     id: 'export-selection-md',
-    title: '导出选中内容为 Markdown',
+    title: 'Export Selection as Markdown',
     contexts: ['selection'],
   });
 });

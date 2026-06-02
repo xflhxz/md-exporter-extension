@@ -35,7 +35,7 @@
   async function runExport() {
     const btn = document.getElementById('exportBtn');
     btn.disabled = true;
-    setStatus('loading', '正在提取页面内容…');
+    setStatus('loading', 'Extracting page content…');
     hideStats();
 
     const options = {
@@ -54,7 +54,7 @@
 
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-      if (!tab) throw new Error('无法获取当前标签页');
+      if (!tab) throw new Error('Unable to get current tab');
 
       let result;
 
@@ -78,15 +78,15 @@
         });
       }
 
-      if (!result?.markdown) throw new Error('未能提取到任何内容');
+      if (!result?.markdown) throw new Error('No content could be extracted');
 
-      setStatus('loading', '正在生成文件…');
+      setStatus('loading', 'Generating file…');
       await triggerDownload(tab.id, result.markdown, result.filename);
 
-      setStatus('success', `✓ 已导出：${result.filename}`);
+      setStatus('success', `✓ Exported: ${result.filename}`);
       showStats(result.charCount, result.filename);
     } catch (err) {
-      setStatus('error', '导出失败：' + (err.message || String(err)));
+      setStatus('error', 'Export failed: ' + (err.message || String(err)));
     } finally {
       btn.disabled = false;
     }
@@ -130,7 +130,7 @@
   function showStats(charCount, filename) {
     document.getElementById('statsArea').style.display = 'flex';
     document.getElementById('charCount').textContent =
-      charCount >= 1000 ? `${(charCount / 1000).toFixed(1)}k 字符` : `${charCount} 字符`;
+      charCount >= 1000 ? `${(charCount / 1000).toFixed(1)}k chars` : `${charCount} chars`;
     // Show truncated filename if too long
     const short = filename.length > 28 ? filename.substring(0, 25) + '…' : filename;
     document.getElementById('filenameChip').textContent = short;
